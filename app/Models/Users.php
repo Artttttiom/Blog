@@ -8,6 +8,7 @@ class Users extends Model
 {
     private $table = "users";
     private $fillable = [
+        "id",
         "email", 
         "password",
         "is_active",
