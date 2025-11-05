@@ -3,6 +3,9 @@
 namespace App\Providers;
 
 use Illuminate\Support\ServiceProvider;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\User\UserController;
+use App\Http\Controllers\Country\CountryController;
 
 class AppServiceProvider extends ServiceProvider
 {
@@ -19,6 +22,12 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        // Регистрируем API маршруты
+        Route::prefix('api')->group(function () {
+            Route::get('users', [UserController::class, 'users']);
+            Route::get('user/{id}', [UserController::class, 'user']);
+            Route::get('country', [CountryController::class, 'country']);
+            Route::get('countries/{id}',[CountryController::class, 'countries']);
+        });
     }
 }
