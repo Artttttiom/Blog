@@ -7,7 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\CountryModel;
 class CountryController 
 {
-    public function country() {
+    public function show() {
+        $country = CountryModel::simplePaginate(15);
+
         return response()->json(CountryModel::query()->get(), 200);
     }
 
