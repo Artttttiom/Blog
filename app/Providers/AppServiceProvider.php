@@ -28,6 +28,9 @@ class AppServiceProvider extends ServiceProvider
             Route::get('user/{id}', [UserController::class, 'user']);
             Route::get('country', [CountryController::class, 'country']);
             Route::get('countries/{id}',[CountryController::class, 'countries']);
+            Route::post('store-country', [CountryController::class, 'store_country']);
+            Route::put('update-country/{id}', [CountryController::class, 'update_country']);
+            Route::delete('delete-country/{id}', [CountryController::class, 'delete_country']);
         });
     }
 }
