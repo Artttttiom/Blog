@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class Users extends Model
 {
     protected $table = "users";
-    private $fillable = [
+    protected $fillable = [
         "id",
         "email", 
         "password",
@@ -21,5 +21,8 @@ class Users extends Model
     }
     public function articles() {
         return $this->belongsToMany(Articles::class, 'user_articles', 'user_id', 'article_id');
+
+
+
     }
 }

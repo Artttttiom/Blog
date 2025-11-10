@@ -7,10 +7,9 @@ use Illuminate\Http\Request;
 use App\Models\CountryModel;
 class CountryController 
 {
-    public function show() {
-        $country = CountryModel::simplePaginate(15);
-
-        return response()->json(CountryModel::query()->get(), 200);
+    public function show(Request $request) {
+        $perPage = $request->input('per_page', 15);
+        return response()->json(CountryModel::query()->simplePaginate($perPage), 200);
     }
 
     public function index($id) {

@@ -23,11 +23,13 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         // Регистрируем API маршруты
-        Route::prefix('api')->group(function () {
-            Route::get('users', [UserController::class, 'users']);
-            Route::get('user/{id}', [UserController::class, 'user']);
-            Route::get('country', [CountryController::class, 'country']);
-            Route::get('countries/{id}',[CountryController::class, 'countries']);
+            Route::prefix('api')->group(function () {
+            Route::get('users', [UserController::class, 'show']);
+            Route::get('user/{id}', [UserController::class, 'index']);
+            Route::post('user', [UserController::class, 'store']);
+            Route::put('user/{id}', [UserController::class, 'update']);
+            Route::delete('user/{id}', [UserController::class, 'destroy']);
+            Route::get('country', [CountryController::class, 'show']);
             Route::get('countries/{id}',[CountryController::class, 'index']);
             Route::post('store-country', [CountryController::class, 'store']);
             Route::put('update-country/{id}', [CountryController::class, 'update']);
