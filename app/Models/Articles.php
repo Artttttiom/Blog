@@ -6,8 +6,8 @@ use Illuminate\Database\Eloquent\Model;
 
 class Articles extends Model
 {
-    private $table = "articles";
-    private $fillable = [
+    protected $table = "articles";
+    protected $fillable = [
         'name',
         'text',
         'is_public',
