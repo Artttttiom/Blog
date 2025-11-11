@@ -6,23 +6,25 @@ use App\Models\Articles;
 use App\Models\CountryModel;
 use GrahamCampbell\ResultType\Success;
 use Illuminate\Http\Request;
-
+use Illuminate\Validation\ValidationException;
 class ArticleController
 {
-    public function show(Request $request){
-        $perPage = $request->input('per_page', 15);    
-        return response()->json(Articles::query()->simplePaginate($perPage, 200));
+    const DEFAULT_PER_PAGE = 15;
+
+    public function index(Request $request){
+
+        $data = $request->validate([
+            'page' => ['nullable', 'integer', 'min:1'],
+            'per_page' => ['nullable','integer','min:1', 'max:100'],
+        ]);
+        
+        $perPage = $data['per_page'] ?? self::DEFAULT_PER_PAGE;
+        return response()->json(Articles::query()->paginate($perPage));
     }
 
-    public function index($id) {
-        $article = Articles::query()->find($id);
+    public function show($id) {
+        $article = Articles::query()->findOrFail($id) ;
 
-    if (!$article) {
-        return response()->json([
-            'message' => 'Article not faund',
-            'status' => 404
-        ],404);
-    }
 
     return response()->json([
         'data' => $article,
@@ -66,7 +68,7 @@ class ArticleController
                 'message' => 'Article not faund'
             ],404);
         }
-        
+
         $article->delete();
 
         return response()->json([

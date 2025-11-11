@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Users;
+use App\Models\Models\Roles;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 class UserController 
@@ -11,12 +12,12 @@ class UserController
     {
         return response()->json(Users::get(), 200);
     }
- public function show(Request $request) {
+ public function index(Request $request) {
         $perPage = $request->input('per_page', 15);
         return response()->json(Users::query()->simplePaginate($perPage), 200);
     }
 
-    public function index($id): JsonResponse
+    public function show($id): JsonResponse
     {
         $user = Users::find($id);
 
@@ -65,7 +66,15 @@ class UserController
         ], 200);
         
     }
+    public function indexRole() 
+    {
+        $roles =  Roles::all();
 
-
+        return response()->json([
+            'success' => 'true',
+            'data' => $roles
+        ]);
+        
+    }
 
 }

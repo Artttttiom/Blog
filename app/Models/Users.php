@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Models\Roles;
 
 class Users extends Model
 {
@@ -21,8 +22,6 @@ class Users extends Model
     }
     public function articles() {
         return $this->belongsToMany(Articles::class, 'user_articles', 'user_id', 'article_id');
-
-
-
     }
+    
 }

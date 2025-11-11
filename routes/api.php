@@ -12,22 +12,23 @@ use App\Http\Controllers\User\UserController;
 // });
 
 //Counties
-Route::get('country', [CountryController::class, 'show']);
-Route::get('countries/{id}',[CountryController::class, 'index']);
+Route::get('country', [CountryController::class, 'index']);
+Route::get('countries/{id}',[CountryController::class, 'show']);
 Route::post('store-country', [CountryController::class, 'store']);
 Route::put('update-country/{id}', [CountryController::class, 'update']);
 Route::delete('delete-country/{id}', [CountryController::class, 'destroy']);
 
 //Users
-Route::get('users', [UserController::class, 'show']);
-Route::get('user/{id}', [UserController::class, 'index']);
+Route::get('users', [UserController::class, 'index']);
+Route::get('user/{id}', [UserController::class, 'show']);
 Route::post('user', [UserController::class, 'store']);
 Route::put('user/{id}', [UserController::class, 'update']);
 Route::delete('user/{id}', [UserController::class, 'destroy']);
+Route::get('roles', [UserController::class, 'indexRole']);
 
 //Articles
-Route::get('articles',[ArticleController::class, 'show']);
-Route::get('article/{id}',[ArticleController::class,'index']);
+Route::get('articles',[ArticleController::class, 'index']);
+Route::get('article/{id}',[ArticleController::class,'show']);
 Route::post('article',[ArticleController::class, 'store']);
 Route::put('article/{id}', [ArticleController::class, 'update']);
 Route::delete('article/{id}',[ArticleController::class, 'destroy']); 
