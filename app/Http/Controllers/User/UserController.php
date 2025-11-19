@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\User;
 
 use App\Models\Users;
-use App\Models\Models\Roles;
+use App\Models\Roles;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 class UserController 
@@ -68,13 +68,7 @@ class UserController
     }
     public function indexRole() 
     {
-        $roles =  Roles::all();
-
-        return response()->json([
-            'success' => 'true',
-            'data' => $roles
-        ]);
-        
+        return response()->json(Roles::get(),200);
     }
 
 }

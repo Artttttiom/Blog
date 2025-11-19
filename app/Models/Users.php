@@ -2,26 +2,36 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
-use App\Models\Models\Roles;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
+use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Notifications\Notifiable;
+use Laravel\Sanctum\HasApiTokens;
 
-class Users extends Model
+class Users extends Authenticatable
 {
-    protected $table = "users";
-    protected $fillable = [
-        "id",
-        "email", 
-        "password",
-        "is_active",
-        "name",
-        "patronymic"
-    ]; 
+    use HasApiTokens, HasFactory, Notifiable;
 
-    public function article(){
-        return $this->hasOne(Articles::class, "category_id", "id");
+    protected $fillable = [
+        'name',
+        'email',
+        'password',
+        'is_verified',
+    ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected $casts = [
+        'email_verified_at' => 'datetime',
+        'password' => 'hashed',
+        'is_verified' => 'boolean',
+    ];
+
+
+    public function articles()
+    {
+        return $this->hasMany(Articles::class);
     }
-    public function articles() {
-        return $this->belongsToMany(Articles::class, 'user_articles', 'user_id', 'article_id');
-    }
-    
 }

@@ -11,8 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->foreignId('tag_id')->constrained('articles')->onDelete('cascade');
+        Schema::table('users', function (Blueprint $table) {
+             $table->boolean('is_verified')->default(false);
         });
     }
 
@@ -21,8 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('articles', function (Blueprint $table) {
-            $table->dropColumn('tag_id');
+        Schema::table('users', function (Blueprint $table) {
+            //
         });
     }
 };

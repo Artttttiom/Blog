@@ -2,28 +2,34 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Articles extends Model
 {
-    protected $table = "articles";
+    use HasFactory;
+
     protected $fillable = [
-        'name',
-        'text',
-        'is_public',
+        'title',
+        'slug',
+        'content',
+        'excerpt',
+        'is_published',
+        'user_id',
         'category_id'
     ];
-    public $timestamps = false;
-    public function category(){
-        return $this->belongsTo(Categorys::class, 'category_id', 'id');
+
+    protected $casts = [
+        'is_published' => 'boolean',
+    ];
+
+    public function user()
+    {
+        return $this->belongsTo(Users::class);
     }
 
-    public function user() {
-        return $this->belongsTo(Users::class, 'user_id', 'id');
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
-
-    public function users() {
-        return $this->belongsToMany(Users::class, 'users_articles', 'article_id', 'user_id' );
-    }
-    
 }
