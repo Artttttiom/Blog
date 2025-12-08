@@ -27,7 +27,8 @@ class RegisterController extends Controller
                 'name' => $request->name,
                 'email' => $request->email,
                 'password' => Hash::make($request->password),
-                'is_verified' => false
+                'is_verified' => false,
+                'role' => 'user'
             ]);
 
             $verificationCode = $this->generateVerificationCode($user->email);
@@ -40,7 +41,8 @@ class RegisterController extends Controller
                 'message' => 'Регистрация пройдена успешно. Пожалуйста проверьте ваш email на наличией кода верификации',
                 'user' => [
                     'name' =>$user->name,
-                    'email' => $user->email
+                    'email' => $user->email,
+                    'role' => $user->role
                 ]
                 ],201);
 
@@ -51,7 +53,21 @@ class RegisterController extends Controller
                     'error' => $e->getMessage()
                 ], 500);
             }
-            
+        }
+
+    private function generateVerificationCode($email) {
+        
+        VerificationCode::where('email', $email)->delete();
+
+        $code = str_pad(random_int(0, 999999), 6, '0', STR_PAD_LEFT);
+
+        VerificationCode::create([
+            'email' => $email,
+            'code' => $code,
+            'expires_at' => now()->addHours(1),
+        ]);
+
+        return $code;
     }
-   
 }
+

@@ -16,6 +16,7 @@ class Users extends Authenticatable
         'email',
         'password',
         'is_verified',
+        'role'
     ];
 
     protected $hidden = [
@@ -27,6 +28,12 @@ class Users extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
         'is_verified' => 'boolean',
+    ];
+
+    protected $attributes = [
+    'role' => 'user',
+    'patronymic' => '',
+    'is_verified' => false,
     ];
 
 
